@@ -17,18 +17,27 @@ function renderExtentions(arr) {
     const div = document.createElement("div");
     div.classList.add("card");
     console.log(div);
-    div.innerHTML = `<div class="card">
-      <div class="upper">
-        <img src="" alt="" />
+    div.innerHTML = `<div class="upper">
+        <img src="${ext.logo}" alt="">
         <div class="text">
-          <h3></h3>
-          <p></p>
+          <h3>${ext.name}</h3>
+          <p>${ext.description}</p>
         </div>
       </div>
       <div class="lower">
-        <button class="remove">remove</button>
-        <input type="checkbox" id="" />
-      </div>
-    </div>`;
+        <button class="remove" id="${ext.id}">Remove</button>
+     <input type="checkbox" id="" ${ext.isActive ? "checked" : ""}>
+      </div>`;
+    container.append(div);
   });
 }
+
+container.addEventListener("click", async function deleteExtentions(e) {
+  console.log(e.target.classList);
+  if (!e.target.classList.contains("remove")) return;
+  const id = e.target.id;
+  const response = await fetch(`http://localhost:3000/extentions/${id}`, {
+    method: "DELETE",
+  });
+  getExtentions();
+});
