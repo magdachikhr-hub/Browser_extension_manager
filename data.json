@@ -19,7 +19,7 @@
       "logo": "./assets/images/logo-speed-boost.svg",
       "name": "SpeedBoost",
       "description": "Optimizes browser resource usage to accelerate page loading.",
-      "isActive": false
+      "isActive": true
     },
     {
       "id": "4",

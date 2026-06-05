@@ -26,7 +26,7 @@ function renderExtentions(arr) {
       </div>
       <div class="lower">
         <button class="remove" id="${ext.id}">Remove</button>
-     <input type="checkbox" id="" ${ext.isActive ? "checked" : ""}>
+     <input type="checkbox" id="${ext.id}" ${ext.isActive ? "checked" : ""}>
       </div>`;
     container.append(div);
   });
@@ -40,4 +40,21 @@ container.addEventListener("click", async function deleteExtentions(e) {
     method: "DELETE",
   });
   getExtentions();
+});
+
+container.addEventListener("click", async function updateCheckbox(e) {
+  console.log(e.target.type);
+  if (e.target.type !== "checkbox") return;
+
+  const id = e.target.id;
+
+  const isChecked = e.target.checked;
+
+  const response = await fetch(`http://localhost:3000/extentions/${id}`, {
+    method: "PATCH",
+    "content-type": "application/json",
+    body: JSON.stringify({
+      isActive: isChecked,
+    }),
+  });
 });
