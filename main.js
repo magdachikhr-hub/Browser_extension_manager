@@ -1,15 +1,34 @@
 const container = document.querySelector(".container");
 
+const allBtn = document.querySelector(".all");
+const activeBtn = document.querySelector(".active");
+const inactiveBtn = document.querySelector(".inactive");
+
 async function getExtentions() {
   const response = await fetch("http://localhost:3000/extentions");
   const data = await response.json();
   renderExtentions(data);
   //   console.log(data);
+
+  activeBtn.addEventListener("click", () => {
+    const activeExtentions = data.filter((el) => el.isActive);
+    console.log(activeExtentions);
+    renderExtentions(activeExtentions);
+  });
+
+  inactiveBtn.addEventListener("click", () => {
+    const inactiveExtentions = data.filter((el) => !el.isActive);
+    renderExtentions(inactiveExtentions);
+  });
+  allBtn.addEventListener("click", () => {
+    renderExtentions(data);
+  });
 }
 
 getExtentions();
 
 function renderExtentions(arr) {
+  container.innerHTML = "";
   console.log(arr);
   console.log(container);
   arr.forEach((ext) => {
