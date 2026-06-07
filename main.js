@@ -4,8 +4,10 @@ const allBtn = document.querySelector(".all");
 const activeBtn = document.querySelector(".active");
 const inactiveBtn = document.querySelector(".inactive");
 
+const base_URL = "http://localhost:3000/extentions";
+
 async function getExtentions() {
-  const response = await fetch("http://localhost:3000/extentions");
+  const response = await fetch("base_URL");
   const data = await response.json();
   renderExtentions(data);
   //   console.log(data);
@@ -55,7 +57,7 @@ container.addEventListener("click", async function deleteExtentions(e) {
   console.log(e.target.classList);
   if (!e.target.classList.contains("remove")) return;
   const id = e.target.id;
-  const response = await fetch(`http://localhost:3000/extentions/${id}`, {
+  const response = await fetch(`${base_URL}/${id}`, {
     method: "DELETE",
   });
   getExtentions();
@@ -69,7 +71,7 @@ container.addEventListener("click", async function updateCheckbox(e) {
 
   const isChecked = e.target.checked;
 
-  const response = await fetch(`http://localhost:3000/extentions/${id}`, {
+  const response = await fetch(`${base_URL}/${id}`, {
     method: "PATCH",
     "content-type": "application/json",
     body: JSON.stringify({
