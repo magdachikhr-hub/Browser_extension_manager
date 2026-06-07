@@ -7,7 +7,7 @@ const inactiveBtn = document.querySelector(".inactive");
 const base_URL = "http://localhost:3000/extentions";
 
 async function getExtentions() {
-  const response = await fetch("base_URL");
+  const response = await fetch(base_URL);
   const data = await response.json();
   renderExtentions(data);
   //   console.log(data);
